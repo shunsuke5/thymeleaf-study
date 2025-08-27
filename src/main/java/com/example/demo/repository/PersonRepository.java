@@ -1,6 +1,6 @@
 package com.example.demo.repository;
 
-import com.example.demo.model.Person;
+import com.example.demo.data.person.model.Person;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
@@ -16,6 +16,7 @@ public class PersonRepository {
     }
 
     public Person create(Person person) {
+        person.setId(this.persons.size());
         this.persons.add(person);
         return person;
     }

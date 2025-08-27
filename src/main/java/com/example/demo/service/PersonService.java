@@ -1,6 +1,7 @@
 package com.example.demo.service;
 
-import com.example.demo.model.Person;
+import com.example.demo.data.person.form.PersonCreateForm;
+import com.example.demo.data.person.model.Person;
 import com.example.demo.repository.PersonRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -17,7 +18,11 @@ public class PersonService {
         return this.repository.findAll();
     }
 
-    public Person create(Person person) {
+    public Person create(PersonCreateForm form) {
+        Person person = Person.builder()
+                .name(form.getName())
+                .age(form.getAge())
+                .build();
         return this.repository.create(person);
     }
 }

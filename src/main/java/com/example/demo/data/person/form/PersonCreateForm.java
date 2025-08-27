@@ -1,4 +1,4 @@
-package com.example.demo.model;
+package com.example.demo.data.person.form;
 
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
@@ -8,12 +8,12 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class Person {
+public class PersonCreateForm {
 
     @NotBlank
-    String name;
+    private String name;
 
     @NotNull
     @Min(0)
-    int age;
+    private int age;
 }

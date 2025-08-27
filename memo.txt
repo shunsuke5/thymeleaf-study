@@ -1,0 +1,33 @@
+エラーやミス、わからなかったことなど
+
+・バリデーションを実装したら、
+　「Caused by: java.lang.IllegalStateException:
+　Neither BindingResult nor plain target object for bean name
+　'form' available as request attribute」のエラーが出る。
+　　→ 原因は、バリデーションに失敗した場合にreturn "index" を行う前に
+　　　model.addAtribute("form", new Person()) を行っていないことだった。
+　　　これを記述することで解決。
+
+・バリデーションエラーが発生してもエラーメッセージが表示されない
+　　→ 原因は、エラー発生時のif文内で
+　　　model.addAttribute("form", new CreatePersonForm());
+　　　を記述していたことだった。エラーが情報がついたformに
+　　　新たに作成したオブジェクトを上書きしてしまっているため、
+　　　エラー情報が消えてしまっていた。
+　　　この記述を消すことで解決。
+
+・th:field="*{name}" 周りでなぜかエラーが出る。
+　　→ 原因は、model.addAttribute(),th:object,@ModelAttribute
+　　　それぞれの値が一致していなかったこと。
+　　　@ModelAttributeはデフォルトでクラス名のロウワーキャメルケースにするので
+　　　PersonCreateFormなら、personCreateFormにしなければならず、
+　　　特定の名前を使いたいなら@ModelAttribute("form")のように
+　　　明示的に指定する必要がある。これを指定していなかったので
+　　　不整合が生じ、エラーが起きていた。指定することで解決したが、
+　　　そもそも変数の名前をpersonCreateFormに変更することにした。
+
+・エラー発生時にerrorclassに指定しているスタイルが適用されない
+　　→ 原因は、th:hrefを使用していなかったことだと考えられる。
+　　　th:hrefで指定することで解決。
+
+・
