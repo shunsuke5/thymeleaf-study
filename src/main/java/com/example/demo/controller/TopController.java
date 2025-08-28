@@ -20,6 +20,7 @@ public class TopController {
                 new Animal("rion", List.of(new Favorite("meet"), new Favorite("bone"))),
                 new Animal("rabbit", List.of(new Favorite("grass"), new Favorite("bean")))
         );
+        boolean isPremium = true;
 
         model.addAttribute("localDate", LocalDate.now());
         model.addAttribute("str", "ababa");
@@ -29,8 +30,14 @@ public class TopController {
         model.addAttribute("name", name);
         model.addAttribute("games", games);
         model.addAttribute("animals", animals);
+        model.addAttribute("isPremium", isPremium);
 
         return "index";
+    }
+
+    @GetMapping("/a")
+    public String a() {
+        return "/fragments/a";
     }
 }
 
