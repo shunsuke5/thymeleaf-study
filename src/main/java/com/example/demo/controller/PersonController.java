@@ -22,18 +22,17 @@ public class PersonController {
 
     @GetMapping
     public String index(Model model) {
-        model.addAttribute("localDate", LocalDate.now());
-        model.addAttribute("str", "ababa");
         List<Person> persons = this.service.findAll();
         model.addAttribute("persons", persons);
         model.addAttribute("personCreateForm", new PersonCreateForm());
-        return "index";
+
+        return "person/index";
     }
 
     @GetMapping("/{id}")
     public String profile(@PathVariable("id") String id, Model model) {
         model.addAttribute("id", id);
-        return "profile";
+        return "person/profile";
     }
 
     @PostMapping
@@ -42,7 +41,7 @@ public class PersonController {
         if (result.hasErrors()) {
             List<Person> persons = this.service.findAll();
             model.addAttribute("persons", persons);
-            return "index";
+            return "person/index";
         }
 
         this.service.create(personCreateform);

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link th:href="@{/css/index.css}" rel="stylesheet" type="text/css" media="all">
+</head>
+<body>
+    <form method="post" th:action="@{/person}" th:object="${personCreateForm}">
+        <div>
+            <label for="name">名前:</label>
+            <input type="text" th:field="*{name}" th:errorclass="error" />
+            <p th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="error">名前エラー</p>
+        </div>
+        <div>
+            <label for="age">年齢:</label>
+            <input type="text" th:field="*{age}" th:errorclass="error" />
+            <p th:if="${#fields.hasErrors('age')}" th:errors="*{age}" class="error">年齢エラー</p>
+        </div>
+        <button type="submit">送信</button>
+    </form>
+    <table>
+        <thead>
+            <tr>
+                <th>名前</th>
+                <th>年齢</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="person : ${persons}">
+                <th th:text="${person.name}">名前</th>
+                <th th:text="${person.age}">年齢</th>
+                <th><a th:href="@{/person/{id} (id=${person.id})}">個人ページ</a></th>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>

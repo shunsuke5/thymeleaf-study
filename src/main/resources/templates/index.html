@@ -2,41 +2,40 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
-    <link th:href="@{/css/index.css}" rel="stylesheet" type="text/css" media="all">
+    <title>トップ画面</title>
 </head>
 <body>
+    <h1>トップ画面</h1>
+    <a th:href="@{/person}">人間</a>
+    <a th:href="@{/product}">商品</a>
     <p th:text="${#temporals.format(localDate, 'yyyy/MM/dd')}"></p>
     <p th:text="${#strings.toUpperCase(str)}"></p>
-    <p th:text="'人数: ' + ${#lists.size(persons)}"></p>
-    <form method="post" th:action="@{/person}" th:object="${personCreateForm}">
-        <div>
-            <label for="name">名前:</label>
-            <input type="text" th:field="*{name}" th:errorclass="error" />
-            <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="error">名前エラー</span>
+    <p th:text="'果物の数: ' + ${#lists.size(fruits)}"></p>
+    <div th:each="fruit : ${fruits}" th:switch="${fruit}">
+        <p th:case="'apple'">りんご</p>
+        <div th:if="${fruit.equals('apple') and isHungry}">
+            お腹がすいたので、りんごを食べます
         </div>
-        <div>
-            <label for="age">年齢:</label>
-            <input type="text" th:field="*{age}" th:errorclass="error" />
-            <span th:if="${#fields.hasErrors('age')}" th:errors="*{age}" class="error">年齢エラー</span>
-        </div>
-        <button type="submit">送信</button>
-    </form>
+        <p th:case="'grape'">ぶどう</p>
+        <p th:case="'orange'">みかん</p>
+    </div>
+    <p th:text="${name ?: 'default'}"></p>
     <table>
-        <thead>
-            <tr>
-                <th>名前</th>
-                <th>年齢</th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr th:each="person : ${persons}">
-                <th th:text="${person.name}">名前</th>
-                <th th:text="${person.age}">年齢</th>
-                <th><a th:href="@{/person/{id} (id=${person.id})}">個人ページ</a></th>
-            </tr>
-        </tbody>
+        <tr th:each="game, stat : ${games}">
+            <td th:text="${stat.index + 1}"></td>
+            <td th:text="${game}"></td>
+            <td th:text="${stat.odd} ? 'odd' : 'even'"></td>
+            <td th:if="${stat.first}">最初の要素</td>
+            <td th:if="${stat.last}">最後の要素</td>
+        </tr>
     </table>
+    <div th:each="animal : ${animals}">
+        <h3 th:text="${animal.name}">アニマル名</h3>
+        <ul>
+            <li th:each="favorite : ${animal.favorites}" th:text="${favorite.name}">
+                好きな食べ物
+            </li>
+        </ul>
+    </div>
 </body>
 </html>
