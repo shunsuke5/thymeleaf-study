@@ -1,0 +1,23 @@
+<!-- fragments/common.html -->
+<!-- ヘッダフラグメント -->
+<header th:fragment="pageHeader(title)">
+    <h1 th:text="${title}">ページタイトル</h1>
+    <nav>
+        <ul>
+            <a th:href="@{/person}">人間</a>
+            <a th:href="@{/product}">商品</a>
+        </ul>
+    </nav>
+</header>
+
+<div th:fragment="contentBlock(customContent)">
+    <p th:replace="${customContent}"></p>
+</div>
+
+<div th:fragment="premiumContent">プレミアムコンテンツ</div>
+<div th:fragment="basicContent">通常コンテンツ</div>
+
+<!-- フッターフラグメント(パラメータ付き) -->
+<footer th:fragment="pageFooter(year)">
+    <p th:text="'@ ' + ${year} + ' My Company'"></p>
+</footer>
