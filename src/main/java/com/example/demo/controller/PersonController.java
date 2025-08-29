@@ -9,8 +9,8 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import java.time.LocalDate;
 import java.util.List;
 
 @Controller
@@ -24,7 +24,6 @@ public class PersonController {
     public String index(Model model) {
         List<Person> persons = this.service.findAll();
         model.addAttribute("persons", persons);
-        model.addAttribute("personCreateForm", new PersonCreateForm());
 
         return "person/index";
     }
@@ -35,16 +34,23 @@ public class PersonController {
         return "person/profile";
     }
 
-    @PostMapping
-    public String create(@Validated @ModelAttribute PersonCreateForm personCreateform, BindingResult result, Model model) {
-        System.out.println(result);
+    @GetMapping("/create")
+    public String create(Model model) {
+        model.addAttribute("personCreateForm", new PersonCreateForm());
+        return "person/create";
+    }
+
+    @PostMapping("/create")
+    public String create(@Validated @ModelAttribute PersonCreateForm personCreateform,
+                         BindingResult result,
+                         RedirectAttributes redirectAttributes
+    ) {
         if (result.hasErrors()) {
-            List<Person> persons = this.service.findAll();
-            model.addAttribute("persons", persons);
-            return "person/index";
+            return "person/create";
         }
 
         this.service.create(personCreateform);
+        redirectAttributes.addFlashAttribute("message", "作成完了");
         return "redirect:/person";
     }
 }

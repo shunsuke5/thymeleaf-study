@@ -1,4 +1,4 @@
-package com.example.demo.data.person.model;
+package com.example.demo.data.product.model;
 
 import lombok.*;
 
@@ -6,8 +6,9 @@ import lombok.*;
 @Setter
 @Builder
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
-public class Person {
+public class Product {
     private int id;
     private String name;
-    private int age;
+    private int price;
+    private int categoryId;
 }
