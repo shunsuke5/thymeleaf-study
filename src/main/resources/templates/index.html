@@ -4,13 +4,13 @@
     <meta charset="UTF-8">
 </head>
 <body>
-    <div th:replace="fragments/common :: pageHeader('ようこそ')">
+    <div th:replace="~{fragments/common :: pageHeader('ようこそ')}">
         ヘッダー部分
     </div>
-    <div th:replace="fragments/common :: ${isPremium ? 'premiumContent' : 'basicContent'}">
+    <div th:replace="~{fragments/common :: ${isPremium ? 'premiumContent' : 'basicContent'}}">
         コンテンツ部分
     </div>
-    <div th:replace="fragments/common :: contentBlock(~{::customContent})">
+    <div th:replace="~{fragments/common :: contentBlock(~{::customContent})}">
         <div th:fragment="customContent">
             <p>カスタムコンテンツ</p>
         </div>
@@ -45,7 +45,7 @@
             </li>
         </ul>
     </div>
-    <div th:replace="fragments/common :: pageFooter(2025)">
+    <div th:replace="~{fragments/common :: pageFooter(2025)}">
         フッター部分
     </div>
 </body>

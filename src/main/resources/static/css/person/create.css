@@ -1,0 +1,11 @@
+input {
+    border: 1px solid;
+}
+
+.danger {
+    border-color: red;
+}
+
+.error {
+    color: red;
+}

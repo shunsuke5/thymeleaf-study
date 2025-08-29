@@ -1,5 +1,7 @@
-<div th:fragment="a">
-    <div th:replace="fragments/common :: contentBlock(~{::customContent})">
-        ここにはない
+<div>
+    <div th:replace="fragments/b :: b">
+        <div th:replace="fragments/common :: contentBlock(~{::customContent})">
+            ここにはない
+        </div>
     </div>
 </div>
